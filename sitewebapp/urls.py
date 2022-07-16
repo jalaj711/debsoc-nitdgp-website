@@ -30,5 +30,6 @@ urlpatterns = [
     path('api/comments/<int:blog_id>/',
          views.api_get_comments, name="comments_api"),
     path('api/alumni/', views.api_get_alumni, name="alumni_api"),
+    path('api/drop-email/', views.api_drop_email, name="drop_email_api")
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

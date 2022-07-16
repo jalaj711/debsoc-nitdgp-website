@@ -179,3 +179,6 @@ class Alumni(models.Model):
 class access_tokens(models.Model):
     name = models.CharField(default='token', max_length=20)
     value = models.CharField(max_length=50)
+
+class DroppedEmails(models.Model):
+    email = models.EmailField(blank=False, null=False)

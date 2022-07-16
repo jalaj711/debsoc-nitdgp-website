@@ -301,3 +301,14 @@ def api_get_alumni(request):
             batch[alm.batch] = []
         batch[alm.batch].append(AlumniSerializer(alm).data)
     return JsonResponse(batch, safe=False)
+
+@api_view(['POST'])
+def api_drop_email(request):
+    email = request.data.get('email')
+    if not email:
+        return JsonResponse({"success": False}, status=400)
+    try:
+        DroppedEmails.objects.create(email=email)
+        return JsonResponse({"success": True}, safe=False)
+    except:
+        return JsonResponse({"success": False}, status=500)
