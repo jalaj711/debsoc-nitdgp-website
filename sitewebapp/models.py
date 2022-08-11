@@ -87,9 +87,9 @@ class event(models.Model):
         max_length=15, choices=MODE, default='Online')
 
     event_starttime = models.DateTimeField(
-        "Start Date of the event: ", default=datetime.now())
+        "Start Date of the event: ", auto_now_add=True)
     event_endtime = models.DateTimeField(
-        "End date of the event: ", default=datetime.now())
+        "End date of the event: ", auto_now_add=True)
 
     active = models.BooleanField(default=True, max_length=50000)
     text1 = models.CharField(blank=True, max_length=20)
@@ -166,7 +166,7 @@ class auditionAnswers(models.Model):
 
 class Alumni(models.Model):
     firstname = models.CharField(max_length=255)
-    lastname = models.CharField(max_length=255)
+    lastname = models.CharField(max_length=255, blank=True, default="")
     email = models.EmailField(max_length=254, null=True, blank=True)
     batch = models.CharField(max_length=10, default='2017')
     sno = models.IntegerField(blank=True, null=True)
