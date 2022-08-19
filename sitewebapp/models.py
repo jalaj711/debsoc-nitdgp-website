@@ -87,9 +87,9 @@ class event(models.Model):
         max_length=15, choices=MODE, default='Online')
 
     event_starttime = models.DateTimeField(
-        "Start Date of the event: ", auto_now_add=True)
+        "Start Date of the event: ", auto_now_add=False)
     event_endtime = models.DateTimeField(
-        "End date of the event: ", auto_now_add=True)
+        "End date of the event: ", auto_now_add=False)
 
     active = models.BooleanField(default=True, max_length=50000)
     text1 = models.CharField(blank=True, max_length=20)
