@@ -30,6 +30,9 @@ urlpatterns = [
     path('api/comments/<int:blog_id>/',
          views.api_get_comments, name="comments_api"),
     path('api/alumni/', views.api_get_alumni, name="alumni_api"),
-    path('api/drop-email/', views.api_drop_email, name="drop_email_api")
+    path('api/drop-email/', views.api_drop_email, name="drop_email_api"),
+    path('api/takedebait-registrations/', views.api_take_debait_register, name="tdb_register"),
+    path('api/takedebait-registrations/check-email/', views.api_take_debait_check_email, name="tdb_check_email"),
+    path('api/takedebait-registrations/export-all/', views.tdb_export_registrations, name="tdb_export")
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

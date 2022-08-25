@@ -1,4 +1,3 @@
-from datetime import datetime
 from django.db import models
 
 # Create your models here.
@@ -182,3 +181,15 @@ class access_tokens(models.Model):
 
 class DroppedEmails(models.Model):
     email = models.EmailField(blank=False, null=False)
+
+class TakeDeBaitRegistration(models.Model):
+    email = models.EmailField(blank=False, unique=True)
+    team_name = models.CharField(blank=False, max_length=150)
+    member_1_name = models.CharField(max_length=150, blank=False)
+    member_1_number = models.CharField(max_length=10, blank=False)
+    member_2_name = models.CharField(max_length=150, blank=False)
+    member_2_number = models.CharField(max_length=10, blank=False)
+    member_3_name = models.CharField(max_length=150, blank=False)
+    member_3_number = models.CharField(max_length=10, blank=False)
+    member_4_name = models.CharField(max_length=150, blank=False)
+    member_4_number = models.CharField(max_length=10, blank=False)

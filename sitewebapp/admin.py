@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Alumni, DroppedEmails, Members, access_tokens, blog, Comments, event
+from .models import Alumni, DroppedEmails, Members, TakeDeBaitRegistration, access_tokens, blog, Comments, event
 # Register your models here.
 
 
@@ -22,3 +22,4 @@ admin.site.register(event)
 admin.site.register(Alumni)
 admin.site.register(access_tokens)
 admin.site.register(DroppedEmails)
+admin.site.register(TakeDeBaitRegistration)

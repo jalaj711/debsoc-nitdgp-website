@@ -4,10 +4,11 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanen
 from .models import *
 from .forms import CommentForm, MemberAddForm, blogcform, alumniform
 from django.utils import timezone
+from django.db.utils import IntegrityError
 from django.views.decorators.cache import never_cache
 from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponseRedirect
-
+import csv
 from rest_framework.decorators import api_view
 from .serializers import *
 
@@ -302,6 +303,7 @@ def api_get_alumni(request):
         batch[alm.batch].append(AlumniSerializer(alm).data)
     return JsonResponse(batch, safe=False)
 
+
 @api_view(['POST'])
 def api_drop_email(request):
     email = request.data.get('email')
@@ -312,3 +314,55 @@ def api_drop_email(request):
         return JsonResponse({"success": True}, safe=False)
     except:
         return JsonResponse({"success": False}, status=500)
+
+@api_view(['POST'])
+def api_take_debait_register(request):
+    try:
+        TakeDeBaitRegistration.objects.create(
+            email=request.data.get('email'),
+            member_1_name=request.data.get('member_1_name'),
+            member_1_number=request.data.get('member_1_number'),
+            member_2_name=request.data.get('member_2_name'),
+            member_2_number=request.data.get('member_2_number'),
+            member_3_name=request.data.get('member_3_name'),
+            member_3_number=request.data.get('member_3_number'),
+            member_4_name=request.data.get('member_4_name'),
+            member_4_number=request.data.get('member_4_number'),
+            team_name=request.data.get('team_name')
+        )
+        return JsonResponse({ "success": True }, safe=False)
+    except IntegrityError:
+        return JsonResponse({ "success": False, "message": "Not all fields were provided"})
+
+
+@api_view(['GET'])
+def api_take_debait_check_email(request):
+    try:
+        email = request.GET.get('email', None)
+        registration = TakeDeBaitRegistration.objects.get(primary_email=email)
+        if registration:
+            return JsonResponse({ "success": False }, safe=False)
+        return JsonResponse({ "success": True })
+    except:
+        return JsonResponse({ "success": True })
+
+
+def tdb_export_registrations(request):
+    response = HttpResponse(content_type="text/csv")
+    response["Content-Disposition"] = 'attachment; filename="takedebait.csv"'
+    writer = csv.writer(response)
+    for team in TakeDeBaitRegistration.objects.all():
+        writer.writerow(
+            [
+                team.primary_email,
+                team.member_1_name,
+                team.member_1_number,
+                team.member_2_name,
+                team.member_2_number,
+                team.member_3_name,
+                team.member_3_number,
+                team.member_4_name,
+                team.member_4_number
+            ]
+        )
+    return response

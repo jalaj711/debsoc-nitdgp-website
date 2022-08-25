@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Members, blog as Blogs, Comments, event as Events, Alumni
+from .models import Members, TakeDeBaitRegistration, blog as Blogs, Comments, event as Events, Alumni
 # access_tokens, Candidates, auditionAnswers, auditionQuestions, auditionRounds
 
 
@@ -30,4 +30,9 @@ class EventSerializer(serializers.ModelSerializer):
 class AlumniSerializer(serializers.ModelSerializer):
     class Meta:
         model = Alumni
+        fields = "__all__"
+
+class TakeDeBaitSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TakeDeBaitRegistration
         fields = "__all__"
