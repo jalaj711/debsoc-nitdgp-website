@@ -331,7 +331,8 @@ def api_take_debait_register(request):
             team_name=request.data.get('team_name')
         )
         return JsonResponse({ "success": True }, safe=False)
-    except IntegrityError:
+    except IntegrityError as e:
+        print(e)
         return JsonResponse({ "success": False, "message": "Not all fields were provided"})
 
 
@@ -339,7 +340,7 @@ def api_take_debait_register(request):
 def api_take_debait_check_email(request):
     try:
         email = request.GET.get('email', None)
-        registration = TakeDeBaitRegistration.objects.get(primary_email=email)
+        registration = TakeDeBaitRegistration.objects.get(email=email)
         if registration:
             return JsonResponse({ "success": False }, safe=False)
         return JsonResponse({ "success": True })
