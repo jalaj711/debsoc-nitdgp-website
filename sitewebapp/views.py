@@ -355,7 +355,8 @@ def tdb_export_registrations(request):
     for team in TakeDeBaitRegistration.objects.all():
         writer.writerow(
             [
-                team.primary_email,
+                team.email,
+                team.team_name,
                 team.member_1_name,
                 team.member_1_number,
                 team.member_2_name,
