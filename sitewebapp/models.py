@@ -193,3 +193,7 @@ class TakeDeBaitRegistration(models.Model):
     member_3_number = models.CharField(max_length=15, blank=False)
     member_4_name = models.CharField(max_length=150, blank=False)
     member_4_number = models.CharField(max_length=15, blank=False)
+
+class MinimalistPosterRedirect(models.Model):
+    source = models.TextField()
+    destination = models.URLField()

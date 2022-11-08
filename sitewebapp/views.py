@@ -368,3 +368,10 @@ def tdb_export_registrations(request):
             ]
         )
     return response
+
+def minimalist_poster_redirect(request, ques_id):
+    try:
+        obj = MinimalistPosterRedirect.objects.get(source=ques_id)
+        return redirect(obj.destination)
+    except MinimalistPosterRedirect.DoesNotExist:
+        return redirect("https://www.instagram.com/debsocnitd/")
